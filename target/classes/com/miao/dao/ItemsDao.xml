@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miao.dao.ItemsDao">
+    <resultMap id="BaseResultMap" type="com.miao.pojo.Items">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="amount" jdbcType="INTEGER" property="amount" />
+        <result column="price" jdbcType="INTEGER" property="price" />
+        <association property="type" javaType="com.miao.pojo.Goods">
+            <id column="goods_id" jdbcType="INTEGER" property="id" />
+            <result column="name" jdbcType="VARCHAR" property="name" />
+            <result column="image1" jdbcType="VARCHAR" property="image1" />
+            <result column="image2" jdbcType="VARCHAR" property="image2" />
+            <result column="cover" jdbcType="VARCHAR" property="cover" />
+            <result column="price" jdbcType="INTEGER" property="price" />
+            <result column="intro" jdbcType="VARCHAR" property="intro" />
+            <result column="type_id" jdbcType="INTEGER" property="typeId" />
+            <result column="stock" jdbcType="INTEGER" property="stock" />
+            <association property="type" javaType="com.miao.pojo.Type">
+                <id column="user_id" property="id"></id>
+                <result column="name" property="name"></result>
+            </association>
+        </association>
+        <association property="order" javaType="com.miao.pojo.Order">
+            <id column="order_id" jdbcType="INTEGER" property="id" />
+            <result column="name" jdbcType="VARCHAR" property="name" />
+            <result column="status"  property="status" />
+            <result column="paytype" property="paytype" />
+            <result column="phone" jdbcType="VARCHAR" property="phone" />
+            <result column="address" jdbcType="VARCHAR" property="address" />
+            <result column="total" jdbcType="INTEGER" property="total" />
+            <result column="amount" jdbcType="INTEGER" property="amount" />
+            <result column="systime"  property="systime" />
+            <association property="type" javaType="com.miao.pojo.User">
+                <id column="user_id" property="id"></id>
+                <result column="name" property="name"></result>
+            </association>
+        </association>
+    </resultMap>
+    <insert id="addItems" parameterType="com.miao.pojo.Items">
+        insert into items(price,amount,order_id,good_id) values (#{good.price},1,2,#{good.id})
+    </insert>
+</mapper>

@@ -20,4 +20,6 @@ public class Goods {
     private Integer typeId;
     private Type type;
     private Integer stock;
+
+
 }

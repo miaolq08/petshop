@@ -2,6 +2,8 @@ package com.miao.service;
 
 import com.miao.pojo.User;
 
+import java.util.List;
+
 /**
  * <h3>petshop</h3>
  *
@@ -14,4 +16,10 @@ public interface UserService {
     User login(User user);
 
     User findByName(String username);
+
+    List<User> findAll();
+
+    void deleteById(Integer id);
+
+    void updateUser(User user);
 }

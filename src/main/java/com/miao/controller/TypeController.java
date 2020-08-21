@@ -2,6 +2,7 @@ package com.miao.controller;
 
 import com.miao.service.TypeServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,14 +17,15 @@ import java.util.List;
  * @author : MLQ
  * @date : 2020-08-10 07:58
  **/
-@RestController
+@Controller
 @RequestMapping("type")
 public class TypeController {
     @Autowired
     private TypeServices typeServices;
     @RequestMapping("findAll")
-    public void findAll(HttpSession session){
+    public String findAll(HttpSession session){
         List typeList = typeServices.findAll();
         session.setAttribute("typeList",typeList);
+        return "redirect:/index/index.jsp";
     }
 }

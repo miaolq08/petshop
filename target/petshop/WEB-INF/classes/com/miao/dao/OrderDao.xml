@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miao.dao.OrderDao">
+    <resultMap id="BaseResultMap" type="com.miao.pojo.Order">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="status"  property="status" />
+        <result column="paytype" property="paytype" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="total" jdbcType="INTEGER" property="total" />
+        <result column="amount" jdbcType="INTEGER" property="amount" />
+        <result column="systime"  property="systime" />
+        <association property="type" javaType="com.miao.pojo.User">
+            <id column="id" property="id"></id>
+            <result column="name" property="name"></result>
+        </association>
+    </resultMap>
+    <select id="findByUserId" resultType="map">
+        select * from orders o inner join users u on o.user_id = u.id where o.user_id=#{id}
+    </select>
+    <insert id="addOrder" parameterType="com.miao.pojo.Order">
+        insert into orders(total,amount,status,paytype,name,user_id,phone,address,systime),values (
+        #{total},#{amount},#{status},#{paytype},#{name},#{uid},#{phone},#{address},#{date}
+        )
+    </insert>
+</mapper>

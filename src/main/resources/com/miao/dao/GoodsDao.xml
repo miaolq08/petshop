@@ -18,6 +18,67 @@
     </resultMap>
 
     <select id="findAll" resultType="map">
-        select g.*,t.name tname from goods g ,types t where g.type_id = t.id
+        select * from goods g ,types t where g.type_id = t.id
     </select>
+    <select id="findById"  resultMap="BaseResultMap">
+        select * from goods g ,types t where g.type_id = t.id and g.id =#{id}
+    </select>
+    <select id="findByTypeId" resultType="map">
+        select * from goods g ,types t where g.type_id = t.id and t.id =#{typeid}
+    </select>
+    <delete id="deleteById" >
+        delete from goods where id = #{id}
+    </delete>
+    <update id="updateGoods" parameterType="com.miao.pojo.Goods">
+        update goods set
+        <trim suffixOverrides=",">
+            <if test="name != null" >
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="intro != null">
+                intro = #{intro},
+            </if>
+            <if test="typeId != null">
+                type_id = #{typeId},
+            </if>
+        </trim>
+        where id = #{id}
+
+    </update>
+    <insert id="addGoods" parameterType="com.miao.pojo.Goods">
+        insert into goods(
+        <trim suffixOverrides=",">
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="intro != null">
+                intro,
+            </if>
+            <if test="typeId != null">
+                type_id,
+            </if>
+        </trim>
+        ) values (
+        <trim suffixOverrides=",">
+            <if test="name != null" >
+                #{name},
+            </if>
+            <if test="price != null">
+                #{price},
+            </if>
+            <if test="intro != null">
+                #{intro},
+            </if>
+            <if test="typeId != null">
+                #{typeId},
+            </if>
+        </trim>
+        )
+    </insert>
 </mapper>

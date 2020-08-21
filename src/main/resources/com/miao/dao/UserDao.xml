@@ -19,4 +19,33 @@
     <select id="findByName" resultMap="BaseResultMap">
         select * from users where username = #{username}
     </select>
+    <select id="findAll" resultType="map">
+        select * from users
+    </select>
+    <delete id="deleteById">
+        delete from users where id =#{id}
+    </delete>
+    <update id="updateUser" parameterType="com.miao.pojo.User">
+        update users set
+        <trim suffixOverrides=",">
+            <if test="name != null" >
+                name = #{name},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+        </trim>
+        where id = #{id}
+
+    </update>
+
 </mapper>

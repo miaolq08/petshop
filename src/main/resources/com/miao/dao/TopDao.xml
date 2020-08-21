@@ -13,15 +13,19 @@
             <result column="intro" jdbcType="VARCHAR" property="intro" />
             <result column="type_id" jdbcType="INTEGER" property="typeId" />
             <result column="stock" jdbcType="INTEGER" property="stock" />
+            <association property="type" javaType="com.miao.pojo.Type">
+                <id property="id" column="id"></id>
+                <result property="name" column="tname"></result>
+            </association>
         </association>
         <association property="type" javaType="com.miao.pojo.Type">
             <id property="id" column="id"></id>
-            <result property="name" column="name"></result>
+            <result property="name" column="tname"></result>
         </association>
     </resultMap>
 
     <select id="findTop1" resultMap="BaseResultMap">
-        select goods.*,types.name from tops,types,goods where tops.type
+        select goods.*,types.name tname from tops,types,goods where tops.type
         =types.id and tops.good_id =goods.id
     </select>
 </mapper>

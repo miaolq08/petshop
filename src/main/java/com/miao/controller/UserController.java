@@ -1,16 +1,22 @@
 package com.miao.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.miao.pojo.Json;
 import com.miao.pojo.User;
 import com.miao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-
+import java.util.List;
 /**
  * <h3>petshop</h3>
  *
@@ -19,6 +25,7 @@ import javax.servlet.http.HttpSession;
  **/
 @Controller
 @RequestMapping("user")
+@CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -36,11 +43,15 @@ public class UserController {
 
     }
     @RequestMapping("login")
-    public String login(User user, HttpSession session){
+    public String login(User user, HttpSession session, HttpServletResponse response){
         User user1=userService.login(user);
+
         String url =null;
         if (user1 != null){
-            session.setAttribute("user1",user1);
+            session.setAttribute("user",user1);
+            Cookie cookie = new Cookie("loginUser", session.getId());
+            cookie.setMaxAge(36000000);
+            response.addCookie(cookie);
             url="/index/index.jsp";
         }else {
             url="/index/login.jsp";
@@ -49,12 +60,36 @@ public class UserController {
     }
     @RequestMapping("my")
     public String my(String username,HttpSession session){
-        System.out.println(username + "username");
+
         User user=userService.findByName(username);
         session.setAttribute("user",user);
-        System.out.println(user);
+
         return "redirect:/index/my.jsp";
-
-
     }
+    @RequestMapping("findAll")
+    @ResponseBody
+    public PageInfo<User> findAll(@RequestParam(defaultValue = "4") Integer pageSize,
+                                  @RequestParam(defaultValue = "1") Integer pageNum){
+        PageHelper.startPage(pageSize,pageNum);
+        List<User> list = userService.findAll();
+        PageInfo<User> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+    @RequestMapping("deleteById")
+    @ResponseBody
+    public void deleteById(Integer id){
+        userService.deleteById(id);
+    }
+    @RequestMapping("updateUser")
+    @ResponseBody
+    public void updateUser(@RequestBody User user){
+        userService.updateUser(user);
+    }
+    @RequestMapping("logout")
+    public String logout(HttpSession session){
+
+         session.setAttribute("user",null);
+        return "redirect:/index/index.jsp";
+    }
+
 }
