@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript" src="js/jquery.min.js"></script>
 <meta charset="utf-8"/>
 </head>
 <body>

@@ -11,7 +11,7 @@
         <result column="total" jdbcType="INTEGER" property="total" />
         <result column="amount" jdbcType="INTEGER" property="amount" />
         <result column="systime"  property="systime" />
-        <association property="type" javaType="com.miao.pojo.User">
+        <association property="user" javaType="com.miao.pojo.User">
             <id column="id" property="id"></id>
             <result column="name" property="name"></result>
         </association>
@@ -20,8 +20,45 @@
         select * from orders o inner join users u on o.user_id = u.id where o.user_id=#{id}
     </select>
     <insert id="addOrder" parameterType="com.miao.pojo.Order">
-        insert into orders(total,amount,status,paytype,name,user_id,phone,address,systime),values (
-        #{total},#{amount},#{status},#{paytype},#{name},#{uid},#{phone},#{address},#{date}
+        insert into orders(total,amount,status,paytype,name,user_id,phone,address) values (
+        #{total},#{amount},#{status},#{paytype},#{name},#{user_id},#{phone},#{address}
         )
     </insert>
+    <select id="findAll" resultType="map">
+        select * from orders
+    </select>
+    <delete id="deleteById">
+        delete from orders where id = #{id}
+    </delete>
+    <update id="updateOrder" parameterType="com.miao.pojo.Order">
+        update orders set
+        <trim suffixOverrides=",">
+            <if test="name != null" >
+                name = #{name},
+            </if>
+            <if test="total != null">
+                total = #{total},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="systime != null">
+                systime = #{systime},
+            </if>
+        </trim>
+        where id = #{id}
+
+    </update>
+    <select id="findByid" resultMap="BaseResultMap">
+        select * from orders where id = #{id}
+    </select>
 </mapper>

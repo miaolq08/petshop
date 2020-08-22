@@ -19,7 +19,7 @@
 	<div class="cart-items">
 		<div class="container">
 			<h2>确认收货信息</h2>
-			<form class="form-horizontal" action="pay.jsp" method="post" id="payform">
+			<form class="form-horizontal" action="../order/payok?id=${order.id}" method="post" id="payform">
 				<input type="hidden" name="id" value="${order.id}">
 				<input type="hidden" name="paytype" id="paytype">
 				<div class="row">
@@ -55,7 +55,7 @@
 			</div>
 			<div class="col-sm-6 col-md-4 col-lg-3 ">
 				<div class="thumbnail">
-					<a href="javascript:dopay(2);"> 
+					<a href="../index1.jsp?id=${order.id}">
 						<img src="images/alipay.jpg" alt="支付宝支付">
 					</a>
 				</div>

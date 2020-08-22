@@ -1,5 +1,6 @@
 package com.miao.dao;
 
+import com.miao.pojo.Type;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,4 +14,10 @@ import java.util.List;
 @Repository
 public interface TypeDao {
     List findAll();
+
+    void add(Type type);
+
+    void updateType(Type type);
+
+    void deleteById(Integer id);
 }

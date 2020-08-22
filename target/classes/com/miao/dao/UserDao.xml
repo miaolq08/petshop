@@ -47,5 +47,7 @@
         where id = #{id}
 
     </update>
-
+    <select id="findById" resultMap="BaseResultMap">
+        select * from users where id = #{id}
+    </select>
 </mapper>

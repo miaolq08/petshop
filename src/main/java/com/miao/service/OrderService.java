@@ -15,5 +15,14 @@ public interface OrderService {
     List<Order> findByUserId(Integer id);
 
 
-    void addOrder(Integer total, Integer amount, Integer status, Integer paytype, String name, Integer uid, String phone, String address, Date date);
+    void addOrder(Integer total, Integer amount, Integer status, Integer paytype, String name, Integer uid, String phone, String address);
+
+    List<Order> findAll();
+
+    void deleteById(Integer id);
+
+    void updateOrder(Order order);
+
+    Order findByid(Integer orderid);
+
 }

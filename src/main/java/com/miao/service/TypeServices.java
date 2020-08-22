@@ -1,5 +1,7 @@
 package com.miao.service;
 
+import com.miao.pojo.Type;
+
 import java.util.List;
 
 /**
@@ -10,4 +12,10 @@ import java.util.List;
  **/
 public interface TypeServices {
     List findAll();
+
+    void add(Type type);
+
+    void updateType(Type type);
+
+    void deleteById(Integer id);
 }

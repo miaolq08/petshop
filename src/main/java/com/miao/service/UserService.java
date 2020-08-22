@@ -22,4 +22,6 @@ public interface UserService {
     void deleteById(Integer id);
 
     void updateUser(User user);
+
+    User findById(Integer userId);
 }

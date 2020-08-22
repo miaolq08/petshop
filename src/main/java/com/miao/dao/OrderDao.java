@@ -1,6 +1,7 @@
 package com.miao.dao;
 
 import com.miao.pojo.Order;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,7 +17,14 @@ import java.util.List;
 @Repository
 public interface OrderDao {
     List<Order> findByUserId(Integer id);
+    void addOrder(@Param("total" ) Integer total, @Param("amount" )Integer amount, @Param("status" ) Integer status, @Param("paytype" ) Integer paytype, @Param("name") String name, @Param("user_id" ) Integer user_id, @Param("phone" ) String phone, @Param("address" ) String address);
 
-    void addOrder(@RequestParam(name ="total" ) Integer total, @RequestParam(name ="amount" )Integer amount, @RequestParam(name ="status" ) Integer status,@RequestParam(name ="paytype" ) Integer paytype,@RequestParam(name ="name" ) String name,@RequestParam(name ="uid" ) Integer uid,@RequestParam(name ="phone" ) String phone,@RequestParam(name ="address" ) String address,@RequestParam(name ="date") Date date);
+    List<Order> findAll();
+
+    void deleteById(Integer id);
+
+    void updateOrder(Order order);
+
+    Order findByid(Integer id);
 
 }

@@ -23,7 +23,7 @@
 		
 			<c:if test="${msg!=null}"><div class="alert alert-success">${msg}</div></c:if>
 			
-			<p><a class="btn btn-success" href="order">查看我的订单</a></p>
+			<p><a class="btn btn-success" href="../order/userOrder?id=${user.id}">查看订单</a></p>
 		</div>
 	</div>
 	<!--//cart-items-->	

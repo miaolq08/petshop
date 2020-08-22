@@ -9,4 +9,13 @@
     <select id="findAll" resultType="map">
         select * from types
     </select>
+    <insert id="add" parameterType="com.miao.pojo.Type">
+        insert into types(name) values (#{name})
+    </insert>
+    <update id="updateType" parameterType="com.miao.pojo.Type">
+        update types set name = #{name} where id  = #{id}
+    </update>
+    <delete id="deleteById">
+        delete from types where id = #{id}
+    </delete>
 </mapper>

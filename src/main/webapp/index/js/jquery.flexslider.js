@@ -164,7 +164,7 @@
               slider.slides.on(eventType, function(e){
                 e.preventDefault();
                 var $slide = $(this),
-                    target = $slide.index();
+                    target = $slide.index1();
                 var posFromLeft = $slide.offset().left - $(slider).scrollLeft(); // Find position of slide relative to left of slider container
                 if( posFromLeft <= 0 && $slide.hasClass( namespace + 'active-slide' ) ) {
                   slider.flexAnimate(slider.getTarget("prev"), true);
@@ -188,7 +188,7 @@
                   that.addEventListener("MSGestureTap", function (e){
                       e.preventDefault();
                       var $slide = $(this),
-                          target = $slide.index();
+                          target = $slide.index1();
                       if (!$(slider.vars.asNavFor).data('flexslider').animating && !$slide.hasClass('active')) {
                           slider.direction = (slider.currentItem < target) ? "next" : "prev";
                           slider.flexAnimate(target, slider.vars.pauseOnAction, false, true, true);
@@ -238,7 +238,7 @@
 
             if (watchedEvent === "" || watchedEvent === event.type) {
               var $this = $(this),
-                  target = slider.controlNav.index($this);
+                  target = slider.controlNav.index1($this);
 
               if (!$this.hasClass(namespace + 'active')) {
                 slider.direction = (target > slider.currentSlide) ? "next" : "prev";
@@ -263,7 +263,7 @@
 
             if (watchedEvent === "" || watchedEvent === event.type) {
               var $this = $(this),
-                  target = slider.controlNav.index($this);
+                  target = slider.controlNav.index1($this);
 
               if (!$this.hasClass(namespace + 'active')) {
                 (target > slider.currentSlide) ? slider.direction = "next" : slider.direction = "prev";
@@ -1054,7 +1054,7 @@
       slider.vars.added(slider);
     };
     slider.removeSlide = function(obj) {
-      var pos = (isNaN(obj)) ? slider.slides.index($(obj)) : obj;
+      var pos = (isNaN(obj)) ? slider.slides.index1($(obj)) : obj;
 
       // update count
       slider.count -= 1;

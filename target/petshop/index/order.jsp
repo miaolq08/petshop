@@ -70,7 +70,7 @@
 						<td><p><fmt:formatDate value="${order.systime}" pattern="yyyy-MM-dd HH:mm:ss" /></p></td>
 						<td>
 							<c:if test="${order.status==1}">
-								<a class="btn btn-success" href="topay?orderid=${order.id}">支付</a>
+								<a class="btn btn-success" href="../order/topay?orderid=${order.id}">支付</a>
 							</c:if>
 						</td>
 			       	</tr>
