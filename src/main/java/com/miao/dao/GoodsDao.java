@@ -18,4 +18,7 @@ public interface GoodsDao {
     void updateGoods(Goods goods);
 
     void addGoods(Goods goods);
+
+    List<Goods> findByName(String name);
+
 }

@@ -15,6 +15,13 @@
             <id column="id" property="id"></id>
             <result column="name" property="name"></result>
         </association>
+        <collection property="itemList" javaType="list" ofType="com.miao.pojo.Items">
+            <id property="id" column="id"></id>
+            <association property="good" javaType="com.miao.pojo.Goods">
+                <id column="id" property="id"></id>
+                <result column="name" property="name"></result>
+            </association>
+        </collection>
     </resultMap>
     <select id="findByUserId" resultType="map">
         select * from orders o inner join users u on o.user_id = u.id where o.user_id=#{id}

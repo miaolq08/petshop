@@ -21,7 +21,7 @@
 		<div class="container">
 			<div class="register">
 				<c:if test="${msg!=null}"><div class="alert alert-danger">${msg}</div></c:if>
-				<form action="../user/my" method="post">
+				<form action="../user/updateUserB" method="post">
 					<input type="hidden" name="id" value="${user.id}">
 					<div class="register-top-grid">
 						<h3>个人中心</h3>
@@ -46,11 +46,11 @@
 						<h4>安全信息</h4>
 						<div class="input">
 							<span>原密码</span>
-							<input type="text" name="password" placeholder="请输入原密码"> 
+							<input type="text" name="password" placeholder="请输入原密码" value="${user.password}">
 						</div>
 						<div class="input">
 							<span>新密码</span>
-							<input type="text" name="passwordNew" placeholder="请输入新密码"> 
+							<input type="text" name="passwordNew" placeholder="请输入新密码" value="${user.password}">
 						</div>
 						<div class="clearfix"> </div>
 						<div class="register-but text-center">

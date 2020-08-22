@@ -48,4 +48,9 @@ public class GoodsServiceImpl implements GoodsService {
     public void addGoods(Goods goods) {
         goodsDao.addGoods(goods);
     }
+
+    @Override
+    public List<Goods> findByName(String name) {
+        return goodsDao.findByName(name);
+    }
 }

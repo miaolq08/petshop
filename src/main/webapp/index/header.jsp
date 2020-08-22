@@ -65,7 +65,7 @@
 				<div class="header-right search-box">
 					<a href="javascript:;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>				
 					<div class="search">
-						<form class="navbar-form" action="search">
+						<form class="navbar-form" action="../goods/search">
 							<input type="text" class="form-control" name="name">
 							<button type="submit" class="btn btn-default" aria-label="Left Align">搜索</button>
 						</form>

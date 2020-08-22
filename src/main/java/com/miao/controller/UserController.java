@@ -91,5 +91,12 @@ public class UserController {
          session.setAttribute("user",null);
         return "redirect:/index/index.jsp";
     }
+    @RequestMapping("updateUserB")
+    public String updateUserB(User user,String passwordNew){
+        User user1 = user;
+        user1.setPassword(passwordNew);
+        userService.updateUser(user1);
+        return "redirect:/index/index.jsp";
+    }
 
 }

@@ -2,6 +2,7 @@ package com.miao.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.miao.pojo.Items;
 import com.miao.pojo.Order;
 import com.miao.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,4 +89,5 @@ public class OrderController {
         orderService.updateOrder(order);
         return "redirect:/index/payok.jsp";
     }
+
 }

@@ -61,5 +61,11 @@ public class GoodsController {
     public void updateGoods(@RequestBody Goods goods){
         goodsService.updateGoods(goods);
     }
+    @RequestMapping("search")
+    public String searche(String name,HttpSession session){
+        List<Goods> list=goodsService.findByName(name);
+        session.setAttribute("goodList",list);
+        return "redirect:/index/goods.jsp";
+    }
 
 }

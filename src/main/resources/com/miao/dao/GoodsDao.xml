@@ -81,4 +81,7 @@
         </trim>
         )
     </insert>
+    <select id="findByName" resultType="map">
+        select * from goods where name like "%"#{name}"%"
+    </select>
 </mapper>

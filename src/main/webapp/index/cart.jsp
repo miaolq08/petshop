@@ -29,7 +29,7 @@
 				<div class="cart-header col-md-6">
 					<div class="cart-sec simpleCart_shelfItem">
 						<div class="cart-item cyc">
-							<a href="detail?goodid=${item.good.id}">
+							<a href="../goods/detail?goodid=${item.good.id}">
 								<img src="../${item.good.cover}" class="img-responsive">
 							</a>
 						</div>
@@ -37,9 +37,9 @@
 							<h3><a href="detail?goodid=${item.good.id}">${item.good.name}</a></h3>
 							<h3><span>单价: ¥ ${item.good.price}</span></h3>
 							<h3><span>数量: ${item.amount}</span></h3>
-							<a class="btn btn-info" href="javascript:buy(${item.good.id});">增加</a>
-							<a class="btn btn-warning" href="javascript:lessen(${item.good.id});">减少</a>
-							<a class="btn btn-danger" href="javascript:deletes(${item.good.id});">删除</a>
+							<a class="btn btn-info" href="javascript:add(${item.good.id});">增加</a>
+							<a class="btn btn-warning" href="javascript:sub(${item.good.id});">减少</a>
+							<a class="btn btn-danger" href="javascript:del(${item.good.id});">删除</a>
 						</div>
 						<div class="clearfix"></div>
 					</div>
@@ -61,4 +61,37 @@
 	<jsp:include page="footer.jsp"/>
 
 </body>
+<script>
+	function add(id) {
+		$.ajax({
+			url:"../items/add?id="+id,
+			success:function () {
+				window.location.reload();
+			}
+		}
+
+		)
+	}
+	function sub(id) {
+		$.ajax({
+					url:"../items/sub?id="+id,
+					success:function () {
+						window.location.reload()
+					}
+				}
+
+		)
+	}
+	function del(id) {
+		$.ajax({
+					url:"../items/del?id="+id,
+					success:function () {
+						window.location.reload()
+					}
+				}
+
+		)
+	}
+</script>
+
 </html>

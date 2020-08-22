@@ -37,7 +37,7 @@
 								<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 								<a href="../goods/detail?goodid=${top.good.id}">查看详情</a>
 							</p>
-							<a class="shop" href="javascript:;" onclick="buy(${top.good.id})">加入购物车</a>
+							<a class="shop" href="javascript:;" onclick="buy(${top.good.id},${user.id})">加入购物车</a>
 							<div class="clearfix"> </div>
 						</div>
 						<div class="galy-info">
@@ -66,7 +66,7 @@
 								<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 
 								<a href="detail?goodid=${top.good.id}">查看详情</a>
 							</p>
-							<a class="shop" href="javascript:;" onclick="buy(${top.good.id})">加入购物车</a>
+							<a class="shop" href="javascript:;" onclick="buy(${top.good.id},${user.id})">加入购物车</a>
 							<div class="clearfix"> </div>
 						</div>
 						<div class="galy-info">
@@ -100,5 +100,15 @@
         })
     })
 </script>--%>
+<script>
+	function buy(id,userId){
+		if (userId ==null){
+			alert("请登录")
+			window.location.href="login.jsp";
+		}else {
+			window.location.href="../items/addByGoodsId?id=" + id+"&userId="+userId;
+		}
 
+	}
+</script>
 </html>
