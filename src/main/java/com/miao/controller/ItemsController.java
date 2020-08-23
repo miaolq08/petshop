@@ -6,7 +6,6 @@ import com.miao.pojo.Order;
 import com.miao.pojo.User;
 import com.miao.service.GoodsService;
 import com.miao.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -116,13 +115,54 @@ public class ItemsController {
     }
     @RequestMapping("sub")
     @ResponseBody
-    public void sub(Integer id){
+    public void sub(Integer id,HttpSession session){
+        Order order = (Order)session.getAttribute("order");
+        List<Items> itemList = order.getItemList();
+        Integer price = 0;
+        for (int i = 0; i <itemList.size() ; i++) {
+            if (id == itemList.get(i).getGood().getId()){
+                price = itemList.get(i).getGood().getPrice();
+                Integer amount = itemList.get(i).getAmount();
+                itemList.get(i).setAmount(amount-1);
+                //设置 一个item新价格
+                if (itemList.get(i).getAmount()==0){
+                    del(id,session);
+                    break;
+                }else {
+                    itemList.get(i).setPrice(itemList.get(i).getAmount()*price);
+                    order.setItemList(itemList);
+                    break;
+                }
+            }
+        }
+        //设置订单的总价格
+        int num = order.getTotal()-price;
+        order.setTotal(num);
+        session.setAttribute("order",order);
 
 
     }
     @RequestMapping("del")
     @ResponseBody
-    public void del(Integer id){
+    public void del(Integer id,HttpSession session){
+        Order order = (Order)session.getAttribute("order");
+        List<Items> itemList = order.getItemList();
+        int price = 0;
+        int size = 0;
+        for (int i = 0; i <itemList.size() ; i++) {
+            if (id == itemList.get(i).getGood().getId()){
+                 price=itemList.get(i).getPrice();
+                 size = itemList.get(i).getAmount();
+                 itemList.remove(itemList.get(i));
+                 break;
+            }
+        }
+        if (size>0){
+            order.setTotal(order.getTotal()-price);
+            session.setAttribute("order",order);
+        }else{
+            session.setAttribute("order",order);
+        }
 
     }
 }
