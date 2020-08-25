@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="js/cart.js"></script>
 </head>
 <body>
-	
+
 	<jsp:include page="header.jsp"/>
 	
 	<!--cart-items-->
@@ -23,6 +23,7 @@
 		
 		<c:if test="${msg!=null}"><div class="alert alert-success">${msg}</div></c:if>
 		<c:if test="${order!=null}">
+
 			<h2>我的购物车</h2>
 			
 			<c:forEach var="item" items="${order.itemList}">

@@ -34,8 +34,10 @@ public class ItemsController {
     private UserService userService;
     @RequestMapping("addByGoodsId")
     public String findByGoodsId(Integer id, Integer userId ,
-                                HttpSession session, HttpServletRequest request,
+                                HttpServletRequest request,
                                 HttpServletResponse response){
+        HttpSession session = request.getSession(false);
+
         Cookie[] cookies = request.getCookies();
         Goods good = goodsService.findById(id);
         Items items = new Items();
@@ -84,6 +86,7 @@ public class ItemsController {
         }
         if (!flag){
             System.out.println("无session");
+            session = request.getSession();
             session.setAttribute("order",order);
             String id1 = session.getId();
             Cookie cookie = new Cookie("JSESSIONID",id1);
@@ -159,6 +162,7 @@ public class ItemsController {
         }
         //设置订单的总价格
         int num = order.getTotal()-price;
+        order.setTotal(num);
         session.setAttribute("order",order);
         Order order1 = (Order)session.getAttribute("order");
         System.out.println(order1);

@@ -77,7 +77,7 @@
 					</a>
 				</div>
 				<div class="header-right login">
-					<a href="../user/my.jsp?username=${user.username}"><span class="glyphicon glyphicon-user" aria-hidden="true">${user.username}</span></a>
+					<a href="../user/my?username=${user.username}"><span class="glyphicon glyphicon-user" aria-hidden="true">${user.username}</span></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>

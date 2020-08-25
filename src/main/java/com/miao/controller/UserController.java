@@ -2,18 +2,14 @@ package com.miao.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.miao.pojo.Json;
 import com.miao.pojo.User;
 import com.miao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -30,16 +26,15 @@ public class UserController {
     @Autowired
     private UserService userService;
     @RequestMapping("register")
-    public ModelAndView register(User user){
+    public String register(User user){
         ModelAndView modelAndView = new ModelAndView();
         int i=userService.regist(user);
         if (i>0){
-           modelAndView.setViewName("/index/login.jsp");
+           return "redirect:/index/login.jsp";
         }
         else {
-            modelAndView.setViewName("/index/register.jsp");
+            return "redirect:/index/register.jsp";
         }
-        return modelAndView;
 
     }
     @RequestMapping("login")
