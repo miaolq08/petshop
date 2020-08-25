@@ -43,47 +43,69 @@ public class ItemsController {
         items.setAmount(1);
         items.setPrice(good.getPrice());
         Order order = new Order();
+        boolean flag = false;
+        boolean tar = true;
         for (int i = 0; i <cookies.length ; i++) {
-            if ("orderCookie".equals(cookies[i].getName())){
+            if (("JSESSIONID").equals(cookies[i].getName())){
                 if (session.getId().equals(cookies[i].getValue())){
+                    //System.out.println("有session");
                     order = (Order) session.getAttribute("order");
-                    if (order.getStatus()==1){
-                        List<Items> itemList = order.getItemList();
-                        itemList.add(items);
-                        int sum=0;
-                        for (int j = 0; j <itemList.size() ; j++) {
-                            sum +=itemList.get(j).getPrice();
+                    if (order!=null){
+                        if (order.getStatus()==1){
+                            List<Items> itemList = order.getItemList();
+                            itemList.add(items);
+                            int sum=0;
+                            for (int j = 0; j <itemList.size()-1 ; j++) {
+                                //System.out.println("商品一致");
+                                if (itemList.get(j).getGood().getId()==good.getId()){
+                                    itemList.remove(itemList.size()-1);
+                                    add(id, session);
+                                    flag=true;
+                                    tar = false;
+                                }
+                                sum +=itemList.get(j).getPrice();
+                            }
+                            if (!tar){
+                                break;
+                            }
+                            if (tar){
+                                //System.out.println("商品不一致执行");
+                                order.setItemList(itemList);
+                                order.setTotal(sum+good.getPrice());
+                                order.setAmount(itemList.size());
+                                flag=true;
+                                break;
+                            }
+
                         }
-                        order.setItemList(itemList);
-                        order.setTotal(sum);
-                        order.setAmount(itemList.size());
-                        break;
                     }
                 }
-            }else {
-                session.setAttribute("order",order);
-                String id1 = session.getId();
-                Cookie cookie = new Cookie("orderCookie", id1);
-                cookie.setMaxAge(60*60);
-                response.addCookie(cookie);
-                order = (Order) session.getAttribute("order");
-                User user = userService.findById(userId);
-                order.setUser(user);
-                order.setPaytype(2);//这块不应该写 应该在点击付款方式的时候获取
-                order.setStatus(1);
-                order.setPhone(user.getPhone());
-                order.setAddress(user.getAddress());
-                List<Items> itemList =new ArrayList<>();
-                itemList.add(items);
-                order.setItemList(itemList);
-                order.setAmount(items.getAmount());
-                order.setTotal(good.getPrice());
             }
+        }
+        if (!flag){
+            System.out.println("无session");
+            session.setAttribute("order",order);
+            String id1 = session.getId();
+            Cookie cookie = new Cookie("JSESSIONID",id1);
+            cookie.setMaxAge(60*60*60);
+            response.addCookie(cookie);
+            order=new Order();
+            User user = userService.findById(userId);
+            order.setUser(user);
+            order.setPaytype(2);//这块不应该写 应该在点击付款方式的时候获取
+            order.setStatus(1);
+            order.setPhone(user.getPhone());
+            order.setAddress(user.getAddress());
+            List<Items> itemList =new ArrayList<>();
+            itemList.add(items);
+            order.setItemList(itemList);
+            order.setAmount(items.getAmount());
+            order.setTotal(good.getPrice());
+        }
+        System.out.println(order);
+        if (tar){
             session.setAttribute("order",order);
         }
-
-
-
        // orderService.addOrder(order);
         /*List<Order> orders = orderService.findByUserId(userId);*/
        // itemsService.addItems(items);
@@ -127,7 +149,7 @@ public class ItemsController {
                 //设置 一个item新价格
                 if (itemList.get(i).getAmount()==0){
                     del(id,session);
-                    break;
+                    return;
                 }else {
                     itemList.get(i).setPrice(itemList.get(i).getAmount()*price);
                     order.setItemList(itemList);
@@ -137,8 +159,9 @@ public class ItemsController {
         }
         //设置订单的总价格
         int num = order.getTotal()-price;
-        order.setTotal(num);
         session.setAttribute("order",order);
+        Order order1 = (Order)session.getAttribute("order");
+        System.out.println(order1);
 
 
     }
@@ -159,10 +182,15 @@ public class ItemsController {
         }
         if (size>0){
             order.setTotal(order.getTotal()-price);
-            session.setAttribute("order",order);
-        }else{
+        }
+        if (itemList.size()==0){
+            System.out.println("我执行了");
+            session.setAttribute("order",null);
+        }else {
+            order.setAmount(order.getAmount()-1);
             session.setAttribute("order",order);
         }
+
 
     }
 }

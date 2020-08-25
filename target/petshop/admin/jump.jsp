@@ -16,9 +16,6 @@
 <%--<h1 align="center">跳转中</h1>--%>
 </body>
 <script>
-    $(function () {
-        $("#jump").trigger("click")
-    })
-
+    setInterval(function(){ $("#jump").trigger("click"); }, 3000);
 </script>
 </html>
